@@ -32,7 +32,7 @@ export default function Addcar(props) {
 
     return(
         <div>
-            <Button style={{margin: 10}}variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button style={{margin: 10}}variant="contained" color="primary" onClick={handleClickOpen}>
                 Add Car
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

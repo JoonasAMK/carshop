@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Addcar from './Addcar';
 import Editcar from './Editcar';
+import { CSVLink, CSVDownload } from "react-csv";
+
+
+
 
 export default function Carlist() {
     const [cars, setCars] = useState([]);
@@ -59,6 +64,15 @@ export default function Carlist() {
         .catch(err => console.error(err))
     }
 
+
+    const today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    const filename = yyyy + '_' + mm + '_' + dd+'.csv';
+
+
     const columns = [
         {
             Header: 'Brand',
@@ -101,7 +115,14 @@ export default function Carlist() {
     ]
     return (
         <div>
+            <Container className="container">
             <Addcar saveCar={saveCar}/>
+            <CSVLink data={cars}
+            filename={filename}
+            className="btn"
+            >Export CSV
+            </CSVLink>
+            </Container>
             <ReactTable filterable={true} data={cars} columns={columns} />
             <Snackbar
                 anchorOrigin={{
